@@ -1,0 +1,47 @@
+﻿@model Ridex_Car_Showroom.DAL.Cars;
+@{
+    Layout = "_ALayout";
+}
+<style>  
+    [btn-update] {
+        color: white;
+        background: #50a723;
+        padding: 5px 16px;
+        border: 1px solid black;
+    }
+
+    [car-row] {
+        background: black;
+        color: white;
+    }
+
+    [car-details-col] {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        padding: 10px 0px;
+    }
+
+    [car-image-col] {
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="row" car-row>
+    <div class="col-md-6" car-image-col>
+        <img src="~/img/@Model.Resim" style="width:100%" />
+    </div>
+    <form style="display:none;" action="/Admin/Update" method="post" id="updateForm"></form>
+    <div class="col-md-6" car-details-col>
+
+        <input type="hidden" name="id" value="@Model.Id" form="updateForm" />
+        <span>Kişi Sayısı:<br><input type="number" name="kisiSayisi" value="@Model.KisiSayisi" form="updateForm"></span>
+        <span>Yakıt Tipi:<br><input type="text" name="yakitTipi" value="@Model.YakitTipi" form="updateForm"></span>
+        <span>Vites Tipi:<br><input type="text" name="vitesTipi" value="@Model.VitesTipi" form="updateForm"></span>
+        <span>Üretim Yılı:<br><input type="number" name="uretimYili" value="@Model.UretimYili" form="updateForm"></span>
+        <span>Marka:<br><input type="text" name="marka" value="@Model.Marka" form="updateForm"></span>
+        <span>Model:<br><input type="text" name="model" value="@Model.Model" form="updateForm"></span>
+        <span>Fiyat:<br><input type="number" name="fiyat" value="@Model.Fiyat" form="updateForm"></span>
+        <span><input btn-update type="submit" form="updateForm" value="Güncelle"></span>
+    </div>
+</div>

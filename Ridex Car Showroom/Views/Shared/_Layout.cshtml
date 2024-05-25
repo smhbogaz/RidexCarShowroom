@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ridex - Favori Arabanızı Bulun</title>
+
+    <link rel="shortcut icon" href="~/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Open+Sans&display=swap"
+          rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <!--login overlay start-->
+    <div class="overlayX" style="display: none;">
+        <div class="overlay-sub">
+            <div class="overlay-close-button">X</div>
+            <form action="/Home/Giris" method="post">
+                <h1 style="display:flex; align-items:center; justify-content:center; margin-top:5%">
+                    <img src="~/img/favicon.svg" style="width:25%"></h1>
+                <div class="formcontainer">
+                    <hr />
+                    <div class="container">
+                        <label for="uname"><strong>Username</strong></label>
+                        <input type="text" placeholder="Enter Username" name="uname" required>
+                        <label for="psw"><strong>Password</strong></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--login overlay end-->
+
+
+    <header class="header" data-header>
+        <div class="container">
+            <div class="overlay" data-overlay></div>
+
+            <a href="#" class="logo">
+                <img src="~/img/logo.svg" alt="Ridex logo">
+            </a>
+
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+
+                    <li>
+                        <a href="@Url.ActionLink("index","home")" class="navbar-link" data-nav-link>Anasayfa</a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.ActionLink("cars","home")" class="navbar-link" data-nav-link>Arabaları Keşfet</a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.ActionLink("aboutus","home")" class="navbar-link" data-nav-link>Hakkımızda</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+
+                <a href="#featured-car" class="btn" aria-labelledby="aria-label-txt">
+                    <ion-icon name="car-outline"></ion-icon>
+
+                    <span id="aria-label-txt">Arabaları Keşfedin</span>
+                </a>
+
+                <a class="btn user-btn" style="cursor: pointer;" aria-label="Profile" id="adminButton">
+                    <ion-icon name="person-outline"></ion-icon>
+                </a>
+
+                <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+                    <span class="one"></span>
+                    <span class="two"></span>
+                    <span class="three"></span>
+                </button>
+
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+
+            <div class="footer-top">
+
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <img src="~/img/logo.svg" alt="Ridex logo">
+                    </a>
+
+                    <p class="footer-text">
+                        İstanbu'da ucuz araç satın alın. <br>
+                        Şirketimiz, 19.000 araçlık zengin filosuyla tüketicilerine cazip ve eğlenceli bir seçim sunuyor.
+                    </p>
+                </div>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Şirket</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Hakkımızda</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Fiyatlandırma planları</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Kişiler</a>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Destek</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Yardım merkezi</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Bir soru sor</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Gizlilik politikası</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Şartlar & koşullar</a>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Ofislerimiz</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">X</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Y</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Z</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Q</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <ul class="social-list">
+
+                    <li>
+                        <a href="#" class="social-link">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="social-link">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="social-link">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="social-link">
+                            <ion-icon name="logo-linkedin"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="social-link">
+                            <ion-icon name="logo-skype"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="social-link">
+                            <ion-icon name="mail-outline"></ion-icon>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <p class="copyright">
+                    &copy; 2024 <a href="#">Designed and Developed By Semih Boğaz</a>. All Rights Reserved
+                </p>
+
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="~/js/script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

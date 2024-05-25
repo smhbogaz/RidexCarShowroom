@@ -1,0 +1,70 @@
+﻿@using Ridex_Car_Showroom.DAL
+@{
+    Layout = "_ALayout";
+    List<Cars> cars = new AppDbContext().Cars.ToList();
+}
+<style>
+    [btn-delete] {
+        color: white;
+        background: red;
+        padding: 5px 16px;
+        border: 1px solid black;
+    }
+
+    [btn-update] {
+        color: white;
+        background: #50a723;
+        padding: 5px 16px;
+        border: 1px solid black;
+    }
+
+    [car-row] {
+        background: black;
+        color: white;
+    }
+
+    [car-details-col] {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        padding: 10px 0px;
+    }
+
+    [car-image-col] {
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+
+<div class="row mb-3" style="display:flex;justify-content:space-evenly">
+
+    @foreach (Cars car in cars)
+    {
+        <div class="col-md-5 mt-2">
+            <div class="row" car-row>
+                <form action="Admin/carDelete" method="post" id="@car.Id"></form>
+                <form action="Admin/carUpdate" method="post" id="@car.Id-"></form>
+                <input form="@car.Id" type="hidden" name="carId" value="@car.Id" />
+                <input form="@car.Id-" type="hidden" name="carId" value="@car.Id" />
+                <div class="col-md-6" car-image-col>
+                    <img src="~/img/@car.Resim" style="width:100%" />
+                </div>
+                <div class="col-md-6" car-details-col>
+                    <span>Kişi Sayısı: @car.KisiSayisi</span>
+                    <span>Yakıt Tipi: @car.YakitTipi</span>
+                    <span>Vites Tipi: @car.VitesTipi</span>
+                    <span>Üretim Yılı: @car.UretimYili</span>
+                    <span>Marka: @car.Marka</span>
+                    <span>Model: @car.Model</span>
+                    <span>Fiyat: @car.Fiyat</span>
+                    <span>İlan Tarihi: @car.IlanTarihi</span>
+                    <div>
+                        <span><input btn-delete type="submit" form="@car.Id" value="Sil"></span>
+                        <span><input btn-update type="submit" form="@car.Id-" value="Güncelle"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

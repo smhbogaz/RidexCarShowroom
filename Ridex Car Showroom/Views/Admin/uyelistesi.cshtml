@@ -1,0 +1,35 @@
+﻿@using Ridex_Car_Showroom.DAL
+@{
+    Layout = "_ALayout";
+    List<Members> members = new AppDbContext().Members.ToList();
+}
+<table class="table bg-dark text-white">
+    <thead>
+        <tr>
+            <th scope="col">Ad</th>
+            <th scope="col">Soyad</th>
+            <th scope="col">Kullanıcı Adı</th>
+            <th scope="col">Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in members.ToList())
+        {
+            <tr>
+                <form action="UyeSil" method="post" id="@item.Id"></form>
+                <input class="bg-dark text-white border-0" form="@item.Id" type="hidden" name="id" value="@item.Id" />
+                <td>@item.Name</td>
+                <td>@item.Surname</td>
+                <td>@item.Username</td>
+                <td><input class="btn btn-danger" type="submit" form="@item.Id" value="SİL" onsubmit="sbmt()" /></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script>
+    function sbmt() {
+        alert("seko");
+    }
+</script>

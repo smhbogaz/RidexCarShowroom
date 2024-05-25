@@ -1,0 +1,182 @@
+﻿@using Ridex_Car_Showroom.DAL
+@{
+    Layout = "_Layout";
+    AppDbContext db = new AppDbContext();
+    List<Cars> list = db.Cars.Take(6).ToList();
+}
+
+
+<article>
+    <section class="section hero" id="home">
+        <div class="container">
+
+            <div class="hero-content">
+                <h2 class="h1 hero-title">Araba almanın <br> kolay yolu</h2>
+
+                <p class="hero-text">
+                    Her daim bizimle iletişime geçebilirsiniz!
+                </p>
+            </div>
+
+            <div class="hero-banner"></div>
+
+            <form action="home/carsSearch" method="post" class="hero-form">
+
+                <div class="input-wrapper">
+                    <label for="input-1" class="input-label">Araba marka</label>
+
+                    <input type="text" name="carmodel" id="input-1" class="input-field"
+                           placeholder="Hangi arabayı arıyorsunuz?" required>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="input-2" class="input-label">Max. Fiyat</label>
+
+                    <input type="text" name="maxpay" id="input-2" class="input-field"
+                           placeholder="TL cinsinden bir fiyat girin" required >
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="input-3" class="input-label">Min. Yıl</label>
+
+                    <input type="text" name="year" id="input-3" class="input-field" placeholder="Minimum üretim yılını girin" required>
+                </div>
+
+                <button type="submit" class="btn">Ara</button>
+
+            </form>
+
+        </div>
+    </section>
+    <section class="section featured-car" id="featured-car">
+        <div class="container">
+
+            <div class="title-wrapper">
+                <h2 class="h2 section-title">Öne çıkan arabalar</h2>
+
+                <a href="@Url.ActionLink("cars","home")" class="featured-car-link">
+                    <span>Dahasını görün</span>
+
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+            </div>
+
+            <ul class="featured-car-list">
+                @foreach (var item in list)
+                {
+                    <li>
+                        <div class="featured-car-card">
+
+                            <figure class="card-banner">
+                                <img src="~/img/@item.Resim" alt="@item.Marka @item.Model @item.UretimYili" loading="lazy" width="440" height="300"
+                                     class="w-100">
+                            </figure>
+
+                            <div class="card-content">
+
+                                <div class="card-title-wrapper">
+                                    <h3 class="h3 card-title">
+                                        <a href="#">@item.Marka @item.Model</a>
+                                    </h3>
+
+                                    <data class="year" value="@item.UretimYili">@item.UretimYili</data>
+                                </div>
+
+                                <ul class="card-list">
+
+                                    <li class="card-list-item">
+                                        <ion-icon name="people-outline"></ion-icon>
+
+                                        <span class="card-item-text">@item.KisiSayisi Kişilik</span>
+                                    </li>
+
+                                    <li class="card-list-item">
+                                        <ion-icon name="flash-outline"></ion-icon>
+
+                                        <span class="card-item-text">@item.YakitTipi</span>
+                                    </li>
+
+                                    <li class="card-list-item">
+                                        <ion-icon name="hardware-chip-outline"></ion-icon>
+
+                                        <span class="card-item-text">@item.VitesTipi</span>
+                                    </li>
+
+                                </ul>
+
+                                <div class="card-price-wrapper">
+
+                                    <p class="card-price">
+                                        <strong>@item.Fiyat TL</strong>
+                                    </p>
+
+                                    <a class="btn" href="@Url.Content("~/home/car/"+@item.Id)">İncele</a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </li>
+                }          
+
+            </ul>
+
+        </div>
+    </section>
+    <section class="section get-start" style="margin-bottom: 5%;">
+        <div class="container">
+
+            <h2 class="h2 section-title">Satın alma kılavuzu</h2>
+
+            <ul class="get-start-list">
+
+                <li>
+                    <div class="get-start-card">
+                        <div class="card-icon icon-2">
+                            <ion-icon name="car-outline"></ion-icon>
+                        </div>
+                        <h3 class="card-title">Hangi arabayı alacağına karar ver</h3>
+                        <p class="card-text">
+                            Fiyatınıza, tiplerine uygun arabanızı seçin.
+                        </p>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="get-start-card">
+
+                        <div class="card-icon icon-3">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">Kendinizi Tanıtın</h3>
+
+                        <p class="card-text">
+                            Kendizini kanıtlamak bizim işlerimizin aksamaması ve sahte profiller için önemlidir
+                        </p>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="get-start-card">
+
+                        <div class="card-icon icon-4">
+                            <ion-icon name="card-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">Bir anlaşma yapalım</h3>
+
+                        <p class="card-text">
+                            Ofisimize gelirseniz sizinle anlaşma yapmak için hazır olacağız!
+                        </p>
+
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </section>
+</article>

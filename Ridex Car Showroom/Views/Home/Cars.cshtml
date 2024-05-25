@@ -1,0 +1,233 @@
+﻿@using Ridex_Car_Showroom.DAL
+@model IList<Ridex_Car_Showroom.DAL.Cars>
+@{
+    Layout = "_Layout";
+    using AppDbContext db = new AppDbContext();
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap-grid.min.css" />
+<style>
+
+    .filter-option {
+        border: 1px solid #e7dfdf;
+        padding: 2%;
+        width: 100%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        display: flex;
+        flex-direction: column;
+        background-color: #f4f4f4;
+        font-family: system-ui;
+        font-size: 16px;
+    }
+
+        .filter-option:hover {
+            background-color: white;
+        }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    #filterSubmit {
+        background: var(--background, var(--carolina-blue));
+        color: white;
+        border-radius: 5px;
+        font-size: 17px;
+        padding: 6px 18px;
+        border: none;
+    }
+
+        #filterSubmit:hover {
+            background-color: #059862;
+        }
+
+    input {
+        border: 1px solid #000;
+        border-radius: 5px;
+    }
+</style>
+<style>
+    @@media(max-width:768px){
+        #showFilter {
+            display: block!important;
+        }
+
+        #filter {
+            display: none;
+        }
+        .row{
+            margin-top:0px!important;
+        }
+    }
+</style>
+
+
+<div style="width:100%; display:none; cursor:pointer; background:black;text-align:center;color:white; margin-top:5rem; border-radius:10px;margin-right:5px;margin-left:5px;" id="showFilter">
+    Menüyü Göster
+</div>
+
+<div class="row" style="margin-top:4rem; margin-bottom:4rem;">
+    <div class="col-3">
+        <div id="filter">
+            <form action="carsFilter" method="get">
+                <div class="filter-option">
+                    <label for="kisiSayisi">Kişi Sayısı</label>
+                    <div>
+                        <input type="number" name="kisiSayisi" id="kisiSayisi">
+                    </div>
+                </div>
+                <div class="filter-option">
+                    <label for="yakitTipi">Yakıt Tipi</label>
+                    <div>
+                        <select name="yakitTipi" id="yakitTipi">
+                            <option value="hybrid">Hybrid</option>
+                            <option value="benzin">Benzin</option>
+                            <option value="elektrik">Elektrik</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-option">
+                    <label for="vitesTipi">Vites Tipi</label>
+                    <div>
+                        <select name="vitesTipi" id="vitesTipi">
+                            <option value="otomatik">Otomatik</option>
+                            <option value="manuel">Manuel</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-option">
+                    <label for="uretimYılı">Üretim Yılı</label>
+                    <div>
+                        <input type="number" name="uretimYili" id="uretimYılı">
+                    </div>
+                </div>
+                <div class="filter-option">
+                    <label for="marka">Marka</label>
+                    <div>
+                        <select name="marka" id="marka">
+                            @foreach (var item in db.Cars.Select(x => x.Marka).Distinct().ToList())
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-option">
+                    <label for="model">Model</label>
+                    <div>
+                        <input type="text" name="model" id="model">
+                    </div>
+                </div>
+                <div class="filter-option">
+                    <input type="submit" id="filterSubmit" value="Ara">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-9 carsList">
+        <section class="section featured-car" id="featured-car">
+            <div class="container">
+                @if (Model is null || Model.Count<=0)
+                {
+                    <h1 style="text-align:center">Seçeneklerinize uygun ürünümüz bulunmamaktadır.</h1>
+                }
+                else
+                {
+                    <ul class="featured-car-list">
+                        @foreach (Cars car in Model)
+                        {
+                            <li>
+                                <div class="featured-car-card">
+
+                                    <figure class="card-banner">
+                                        <img src="~/img/@car.Resim" alt="Toyota RAV4 2021" loading="lazy" width="440" height="300"
+                                             class="w-100">
+                                    </figure>
+
+                                    <div class="card-content">
+
+                                        <div class="card-title-wrapper">
+                                            <h3 class="h3 card-title">
+                                                <a href="#">@car.Marka @car.Model</a>
+                                            </h3>
+
+                                            <data class="year" value="2021">@car.UretimYili</data>
+                                        </div>
+
+                                        <ul class="card-list">
+
+                                            <li class="card-list-item">
+                                                <ion-icon name="people-outline"></ion-icon>
+
+                                                <span class="card-item-text">@car.KisiSayisi Kişilik</span>
+                                            </li>
+
+                                            <li class="card-list-item">
+                                                <ion-icon name="flash-outline"></ion-icon>
+
+                                                <span class="card-item-text">@car.YakitTipi</span>
+                                            </li>
+
+                                            <li class="card-list-item">
+                                                <ion-icon name="hardware-chip-outline"></ion-icon>
+
+                                                <span class="card-item-text">@car.VitesTipi</span>
+                                            </li>
+
+                                        </ul>
+
+                                        <div class="card-price-wrapper">
+
+                                            <p class="card-price">
+                                                <strong>@car.Fiyat</strong>
+                                            </p>
+
+                                            <a class="btn" href="@Url.Content("~/home/car/"+car.Id)">İncele</a>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </section>
+    </div>
+
+</div>
+
+
+
+
+
+
+<script>
+    let cars=document.querySelector(".carsList");
+    document.getElementById("showFilter").addEventListener("click",()=>{        
+        if (document.getElementById("filter").style.display == "block") {
+            document.getElementById("filter").style.display = "none";
+            cars.classList.remove("col-9");
+            cars.classList.add("col-12");
+        }
+        else{
+            document.getElementById("filter").style.display = "block";
+            cars.classList.add("col-9");
+            cars.classList.remove("col-12");
+        }
+    })
+</script>
+
+
